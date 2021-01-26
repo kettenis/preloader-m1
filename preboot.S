@@ -328,9 +328,9 @@ start:
     mov x1, #0x800000000
     orr x1, x1, #0x80000000
     add x1, x1, #0x40000
-    add x2, x0, #0x40000
+    add x2, x0, #0x1c0000
     ldr x2, [x2, #16]
-    add x2, x2, #0x40000
+    add x2, x2, #0x1c0000
     add x2, x2, #15
     bic x2, x2, #15
 1:  ldp x8, x9, [x0], #16
@@ -351,13 +351,23 @@ start:
 
     bl cpuinit
 
+    adr x0, smpentry
+    mov x1, #0x800000000
+    orr x1, x1, #0x80000000
+    add x1, x1, #0x40000
+    add x2, x0, #0x1c0000
+    ldr x2, [x2, #16]
+    add x2, x2, #0x1c0000
+    add x4, x1, x2
+
     mov x0, #0x800000000
     orr x0, x0, #0x80000000
     add x0, x0, #0x60000
     mov x1, #0
-    mov x2, #0
+    mov x2, x0
     mov x3, #0
-    add x18, x0, #0x20000
+    add x18, x0, #0x1a0000
+    mov x0, x4
     br x18
 
 uart_putchar:
