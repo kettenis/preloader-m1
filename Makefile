@@ -1,10 +1,10 @@
-AA64 = /opt/cross/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-
-AA64CFLAGS = -Os -Wall -std=c99 -fno-builtin -fno-common -fno-pic -fno-unwind-tables -fomit-frame-pointer -fno-dwarf2-cfi-asm -mgeneral-regs-only
+AA64 = aarch64-none-elf-
+AA64CFLAGS = -Os -Wall -std=c99 -fno-builtin -fno-common -fno-pic -fno-unwind-tables -fomit-frame-pointer -fno-dwarf2-cfi-asm -mgeneral-regs-only -I/usr/include
 
 all: linux.macho
 
 linux.macho: machopack preboot.bin Image apple-m1-j274.dtb
-	./machopack $@ preboot.bin@0x803040000 Image@0x803080000 apple-m1-j274.dtb@0x803060000
+	./machopack $@ preboot.bin@0x803040000 Image@0x803200000 apple-m1-j274.dtb@0x803060000
 
 preboot.bin: preboot.elf
 	$(AA64)objcopy -Obinary $^ $@
